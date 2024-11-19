@@ -37,10 +37,8 @@ public class BoidManager : MonoBehaviour
             Vector2 v3 = VelocityMatching(boid);
             //keep within bounds
             Vector2 v4 = KeepWithinBounds(boid);
-            //random offset
-            Vector2 v5 = RandomVelocityOffset(boid);
 
-            boid.velocity += v1 + v2 + v3 + v4 + v5;
+            boid.velocity += v1 + v2 + v3 + v4;
             boid.velocity = LimitVelocity(boid);
             boid.position += boid.velocity * Time.deltaTime;
         }
@@ -112,14 +110,6 @@ public class BoidManager : MonoBehaviour
             velocity = (b.velocity / b.velocity.magnitude) * speedLimit;
         }
         return velocity;
-    }
-
-    private Vector2 RandomVelocityOffset(Boid b)
-    {
-        float direction = Mathf.Atan2(b.velocity.y, b.velocity.x);
-        direction += Random.Range(-1f, 1f);
-        Vector2 newVelocity = new Vector2(Mathf.Cos(direction), Mathf.Sin(direction));
-        return newVelocity;
     }
 
     private void OnDrawGizmos()
